@@ -1,0 +1,80 @@
+4. Employee Payroll and Deduction Analysis
+
+Calculate salary from basic pay, housing and travel allowances, overtime, and incentive. Apply progressive deductions: 0% on the first 20000, 10% on the next 30000, and 20% above 50000. Add other deductions and print a salary statement.
+
+Algorithm
+
+1. Read the employee's pay components.
+
+2. Calculate overtime pay and total gross salary.
+
+3. Apply each progressive deduction band only to the portion within that band.
+
+4. Add other deductions and subtract total deductions from gross pay.
+
+5. Print the formatted salary statement.
+
+Flowchart
+
+START -> Read pay components -> Calculate gross
+
+  -> Calculate deduction by progressive bands
+
+  -> Add other deductions -> Calculate net salary
+
+  -> Print statement -> END
+
+Python code
+
+employee = "E104"
+
+basic = 30000
+
+allowances = [9000, 2500]
+
+overtime_hours = 8
+
+overtime_rate = 300
+
+incentive = 2000
+
+gross = basic + sum(allowances) + overtime_hours * overtime_rate + incentive
+
+if gross <= 20000:
+
+    tax = 0
+
+elif gross <= 50000:
+
+    tax = (gross - 20000) * 0.10
+
+else:
+
+    tax = 30000 * 0.10 + (gross - 50000) * 0.20
+
+other_deductions = 1800
+
+net = gross - tax - other_deductions
+
+print("SALARY STATEMENT -", employee)
+
+print("Basic:", basic, "Allowances:", sum(allowances))
+
+print("Overtime:", overtime_hours * overtime_rate, "Incentive:", incentive)
+
+print("Gross:", gross, "Tax:", tax)
+
+print("Other deductions:", other_deductions, "Net pay:", net)
+
+Sample output
+
+SALARY STATEMENT - E104
+
+Basic: 30000 Allowances: 11500
+
+Overtime: 2400 Incentive: 2000
+
+Gross: 45900 Tax: 2590.0
+
+Other deductions: 1800 Net pay: 41510.0
+
