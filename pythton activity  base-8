@@ -1,0 +1,87 @@
+8. Manufacturing Cost and Profitability Analysis
+
+Calculate material costs, add wastage, labour and machine charges, then compare production profit with a target margin. Example target margin is 20% of revenue.
+
+Algorithm
+
+1. Multiply each material quantity by its unit cost and sum the results.
+
+2. Increase material cost by the wastage percentage.
+
+3. Calculate labour and machine charges and add them to total cost.
+
+4. Calculate revenue, profit, and profit margin.
+
+5. Compare the margin with the target and report the result.
+
+Flowchart
+
+START -> Sum material costs -> Add wastage
+
+  -> Add labour and machine costs -> Calculate revenue and profit
+
+  -> Margin >= target? YES: Target met
+
+                   NO: Target not met
+
+  -> Print analysis -> END
+
+Python code
+
+materials = [[100, 20], [50, 30]]
+
+raw_material = 0
+
+for item in materials:
+
+    quantity, unit_cost = item
+
+    raw_material = raw_material + quantity * unit_cost
+
+material_cost = raw_material + raw_material * 5 / 100
+
+labor_cost = 40 * 150
+
+machine_cost = 20 * 200
+
+total_cost = material_cost + labor_cost + machine_cost
+
+units = 100
+
+selling_price = 75
+
+revenue = units * selling_price
+
+profit = revenue - total_cost
+
+if revenue > 0:
+
+    margin = profit / revenue * 100
+
+else:
+
+    margin = 0
+
+if margin >= 20:
+
+    result = "TARGET MET"
+
+else:
+
+    result = "TARGET NOT MET"
+
+print("Material:", material_cost, "Labour:", labor_cost, "Machine:", machine_cost)
+
+print("Cost:", total_cost, "Revenue:", revenue)
+
+print("Profit:", profit, "Margin:", round(margin, 1), result)
+
+Sample output
+
+Material: 3675.0 Labour: 6000 Machine: 4000
+
+Cost: 13675.0 Revenue: 7500
+
+Profit: -6175.0 Margin: -82.3 TARGET NOT MET
+
+
