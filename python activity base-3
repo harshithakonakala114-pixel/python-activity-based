@@ -1,0 +1,95 @@
+3. Hospital Billing and Patient Classification
+
+Add consultation, diagnostic, and treatment charges. Apply a 10% concession for senior patients, subtract any advance, prevent a negative amount due, and classify the remaining balance by the supplied payment bands.
+
+Algorithm
+
+1. Read the three charge amounts, patient type, and advance.
+
+2. Add the charges to get the gross bill.
+
+3. If the patient is a senior, calculate and subtract the concession.
+
+4. Subtract the advance; if the result is below zero, set it to zero.
+
+5. Find the matching payment band and print the statement.
+
+Flowchart
+
+START -> Add consultation, diagnostics, treatment
+
+  -> Senior patient? YES: Apply concession
+
+                 NO: No concession
+
+  -> Subtract advance -> Balance below zero? YES: Set to zero
+
+  -> Match payment band -> Print -> END
+
+Python code
+
+consultation = 500
+
+diagnostics = 1800
+
+treatment = 4500
+
+patient_type = "senior"
+
+advance = 1000
+
+gross = consultation + diagnostics + treatment
+
+if patient_type == "senior":
+
+    concession = gross * 10 / 100
+
+else:
+
+    concession = 0
+
+due = gross - concession - advance
+
+if due < 0:
+
+    due = 0
+
+if due <= 1000:
+
+    category = "Settled"
+
+elif due <= 3000:
+
+    category = "Low balance"
+
+elif due <= 10000:
+
+    category = "Standard balance"
+
+else:
+
+    category = "High balance"
+
+print("Gross:", gross)
+
+print("Concession:", concession)
+
+print("Advance:", advance)
+
+print("Amount due:", due)
+
+print("Class:", category)
+
+Sample output
+
+Gross: 6800
+
+Concession: 680.0
+
+Advance: 1000
+
+Amount due: 5120.0
+
+Class: Standard balance
+
+
