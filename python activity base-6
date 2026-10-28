@@ -1,0 +1,63 @@
+6. Railway Fare and Reservation Calculator
+
+Calculate a progressive distance fare, multiply by travel class, apply an age concession when eligible, add the reservation fee, and calculate the cancellation penalty for each passenger.
+
+Algorithm
+
+1. Calculate the distance charge by applying each distance band.
+
+2. For each passenger, multiply by the class factor.
+
+3. If age meets the concession rule, subtract the percentage concession.
+
+4. Add the reservation fee and calculate the cancellation penalty.
+
+5. Print the fare and penalty per passenger.
+
+Flowchart
+
+START -> Calculate distance-slab fare -> For each passenger
+
+  -> Apply class multiplier -> Age qualifies?
+
+     -> YES: Subtract age concession
+
+     -> NO: Keep fare
+
+  -> Add reservation fee -> Calculate cancellation penalty
+
+  -> More passengers? YES: Repeat -> Print -> END
+
+Python code
+
+distance = 600
+
+# First 100 km at 0.5, next 400 at 0.4, rest at 0.3.
+
+base = 100 * 0.5 + 400 * 0.4 + (distance - 500) * 0.3
+
+passengers = [["Anil", 65, 1], ["Mira", 35, 2.5]]
+
+for passenger in passengers:
+
+    name, age, class_factor = passenger
+
+    fare = base * class_factor
+
+    if age >= 60:
+
+        fare = fare - fare * 40 / 100
+
+    fare = fare + 40
+
+    penalty = fare * 25 / 100
+
+    print(name, "fare", round(fare, 2), "cancellation", round(penalty, 2))
+
+Sample output
+
+Anil fare 184.0 cancellation 46.0
+
+Mira fare 640.0 cancellation 160.0
+
+
