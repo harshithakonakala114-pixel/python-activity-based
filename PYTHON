@@ -1,0 +1,138 @@
+"""Rank scholarship applicants and award scholarships to the top two."""
+
+applicants = [
+    ["S01", 88, 82, 90, 92, 240000],
+    ["S02", 88, 79, 85, 95, 210000],
+    ["S03", 72, 80, 81, 90, 180000],
+]
+
+SCHOLARSHIPS = 2
+eligible = []
+rejected = []
+
+for row in applicants:
+    student, aggregate, math, english, attendance, income = row
+    reasons = []
+    if aggregate < 75:
+        reasons.append("aggregate below 75")
+    if math < 50:
+        reasons.append("math below 50")
+    if english < 50:
+        reasons.append("English below 50")
+    if attendance < 75:
+        reasons.append("attendance below 75")
+    if income > 300000:
+        reasons.append("family income above 300000")
+
+    if reasons:
+        rejected.append((student, reasons))
+    else:
+        eligible.append((aggregate, income, attendance, math + english, student))
+
+# Rank by aggregate descending, income ascending, attendance descending,
+# subject total descending, and student ID alphabetically.
+eligible.sort(key=lambda item: (-item[0], item[1], -item[2], -item[3], item[4]))
+
+for rank, (_, _, _, _, student) in enumerate(eligible, start=1):
+    status = "AWARDED" if rank <= SCHOLARSHIPS else "WAITLIST"
+    print(f"Rank {rank} {student} {status}")
+
+for student, reasons in rejected:
+    print(f"{student} NOT ELIGIBLE: {', '.join(reasons)}")Check applicants against four eligibility requirements, rank qualifying students, and award a fixed number of scholarships. Example policy: aggregate >= 75, each subject >= 50, attendance >= 75, family income <= 300000. Tie-break order: higher aggregate, lower income, higher attendance, higher subject total, then student ID alphabetically.
+
+Algorithm
+
+1. Store applicant data in a nested list.
+
+2. Check aggregate, both subject marks, attendance, and income for every applicant.
+
+3. Record eligible applicants as tuples; record failed applicants with a reason.
+
+4. Sort the eligible tuples using the published ranking order.
+
+5. Print rank, award status, and rejected applicants.
+
+Flowchart
+
+START -> Read applicants
+
+  -> Check all minimum and maximum rules
+
+     -> Fail? YES: Record reason -> next applicant
+
+     -> Fail? NO: Add to eligible list -> next applicant
+
+  -> Sort eligible by tie-break rules
+
+  -> Rank and award first two
+
+  -> Print results -> END
+
+Python code
+
+applicants = [["S01", 88, 82, 90, 92, 240000],
+
+              ["S02", 88, 79, 85, 95, 210000],
+
+              ["S03", 72, 80, 81, 90, 180000]]
+
+eligible = []
+
+rejected = []
+
+for row in applicants:
+
+    student, aggregate, math, english, attendance, income = row
+
+    if aggregate >= 75 and math >= 50 and english >= 50 and attendance >= 75 and income <= 300000:
+
+        eligible.append((aggregate, income, attendance, math + english, student))
+
+    else:
+
+        rejected.append(student)
+
+# Bubble sort: aggregate high, income low, attendance high,
+
+# subject total high, then ID alphabetically.
+
+for i in range(len(eligible)):
+
+    for j in range(0, len(eligible) - i - 1):
+
+        a = eligible[j]
+
+        b = eligible[j + 1]
+
+        if a[0] < b[0] or (a[0] == b[0] and a[1] > b[1]) or (a[0] == b[0] and a[1] == b[1] and a[2] < b[2]) or (a[0] == b[0] and a[1] == b[1] and a[2] == b[2] and a[3] < b[3]) or (a[0] == b[0] and a[1] == b[1] and a[2] == b[2] and a[3] == b[3] and a[4] > b[4]):
+
+            eligible[j], eligible[j + 1] = eligible[j + 1], eligible[j]
+
+rank = 1
+
+for aggregate, income, attendance, subject_total, student in eligible:
+
+    if rank <= 2:
+
+        status = "AWARDED"
+
+    else:
+
+        status = "WAITLIST"
+
+    print(rank, student, status)
+
+    rank = rank + 1
+
+for student in rejected:
+
+    print(student, "NOT ELIGIBLE")
+
+Sample output
+
+Rank 1 S02 AWARDED
+
+Rank 2 S01 AWARDED
+
+S03 NOT ELIGIBLE
+
