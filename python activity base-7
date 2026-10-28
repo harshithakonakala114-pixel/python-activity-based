@@ -1,0 +1,88 @@
+7. Retail Billing with Multiple Discount Rules
+
+Create an itemized bill with product-specific tax and discounts. Apply an additional 5% discount when the pre-discount subtotal reaches 5000, but cap that extra concession at 400.
+
+Algorithm
+
+1. Read each product name, price, quantity, tax rate, and discount rate.
+
+2. Calculate line amount, item discount, taxable amount, and tax.
+
+3. Add line totals to get the invoice subtotal.
+
+4. If the threshold is reached, calculate the extra discount and cap it.
+
+5. Subtract the threshold discount and print the invoice.
+
+Flowchart
+
+START -> Read products -> Calculate line amount and discount
+
+  -> Calculate category tax -> Add item totals
+
+  -> Subtotal >= threshold? YES: Apply capped discount
+
+                           NO: No extra discount
+
+  -> Print invoice -> END
+
+Python code
+
+products = [["Books", 1200, 2, 5, 0],
+
+            ["Bag", 1800, 2, 12, 10]]
+
+subtotal = 0
+
+invoice_before_threshold = 0
+
+for product in products:
+
+    name, price, quantity, tax_rate, discount_rate = product
+
+    amount = price * quantity
+
+    discount = amount * discount_rate / 100
+
+    taxable = amount - discount
+
+    tax = taxable * tax_rate / 100
+
+    line_total = taxable + tax
+
+    subtotal = subtotal + amount
+
+    invoice_before_threshold = invoice_before_threshold + line_total
+
+    print(name, "amount", amount, "discount", discount, "tax", tax, "line", line_total)
+
+if subtotal >= 5000:
+
+    threshold_discount = subtotal * 5 / 100
+
+    if threshold_discount > 400:
+
+        threshold_discount = 400
+
+else:
+
+    threshold_discount = 0
+
+print("Subtotal:", subtotal)
+
+print("Threshold discount:", threshold_discount)
+
+print("Invoice total:", invoice_before_threshold - threshold_discount)
+
+Sample output
+
+Books amount 2400 discount 0.0 tax 120.0 line 2520.0
+
+Bag amount 3600 discount 360.0 tax 388.8 line 3628.8
+
+Subtotal: 6000
+
+Threshold discount: 300.0
+
+Invoice total: 5848.8
+
