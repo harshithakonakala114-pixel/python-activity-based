@@ -1,0 +1,87 @@
+9. Multi-Currency Travel Budget Analysis
+
+Convert each travel expense using its supplied exchange rate, add a 2% conversion fee, compare the total with a budget, and find the largest converted category.
+
+Algorithm
+
+1. Read expense categories, foreign amounts, and exchange rates.
+
+2. Convert each amount and add the conversion fee.
+
+3. Add converted amounts and track the largest expense.
+
+4. Compare the total with the budget.
+
+5. Print converted categories, budget status, and largest category.
+
+Flowchart
+
+START -> Read expense rows -> Convert amount and add fee
+
+  -> Add to total -> Is this the largest so far?
+
+     -> YES: Save category
+
+     -> NO: Keep current largest
+
+  -> More rows? YES: Repeat
+
+  -> Compare total with budget -> Print -> END
+
+Python code
+
+expenses = [["Flights", 500, 83], ["Hotel", 600, 83], ["Food", 200, 83]]
+
+fee_rate = 2
+
+budget = 200000
+
+total = 0
+
+largest = ""
+
+largest_amount = 0
+
+for expense in expenses:
+
+    category, foreign_amount, rate = expense
+
+    converted = foreign_amount * rate
+
+    converted = converted + converted * fee_rate / 100
+
+    total = total + converted
+
+    print(category, round(converted, 2))
+
+    if converted > largest_amount:
+
+        largest_amount = converted
+
+        largest = category
+
+if total <= budget:
+
+    status = "WITHIN BUDGET"
+
+else:
+
+    status = "OVER BUDGET"
+
+print("Total:", round(total, 2), status)
+
+print("Largest category:", largest)
+
+Sample output
+
+Flights 42330.0
+
+Hotel 50796.0
+
+Food 16932.0
+
+Total: 110058.0 WITHIN BUDGET
+
+Largest category: Hotel
+
+
