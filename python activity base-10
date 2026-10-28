@@ -1,0 +1,80 @@
+10. Campus Event Financial Planning
+
+Add venue, equipment, catering, transport, and certificate costs. Subtract sponsorship to find the shortfall. Calculate the minimum whole number of registrations needed to cover the shortfall at a fixed registration fee.
+
+Algorithm
+
+1. Add all event cost categories.
+
+2. Subtract sponsorship and set a negative shortfall to zero.
+
+3. If a shortfall remains, repeatedly add the registration fee until contributions cover it, counting registrations.
+
+4. If no shortfall remains, zero registrations are needed.
+
+5. Print total costs, sponsorship, shortfall, and break-even count.
+
+Flowchart
+
+START -> Sum event costs -> Subtract sponsorship
+
+  -> Shortfall below zero? YES: Set to zero
+
+  -> Shortfall > 0? NO: Registrations = 0
+
+                  YES: Add fee repeatedly and count
+
+  -> Contributions cover shortfall -> Print -> END
+
+Python code
+
+venue = 40000
+
+equipment = 15000
+
+catering = 60000
+
+transport = 12000
+
+certificates = 3000
+
+sponsorship = 70000
+
+registration_fee = 500
+
+total_cost = venue + equipment + catering + transport + certificates
+
+shortfall = total_cost - sponsorship
+
+if shortfall < 0:
+
+    shortfall = 0
+
+registrations = 0
+
+contributions = 0
+
+while contributions < shortfall:
+
+    contributions = contributions + registration_fee
+
+    registrations = registrations + 1
+
+print("Total costs:", total_cost)
+
+print("Sponsorship:", sponsorship)
+
+print("Shortfall:", shortfall)
+
+print("Break-even registrations:", registrations)
+
+Sample output
+
+Total costs: 130000
+
+Sponsorship: 70000
+
+Shortfall: 60000
+
+Break-even registrations: 120
+
