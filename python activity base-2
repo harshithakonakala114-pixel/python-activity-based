@@ -1,0 +1,93 @@
+Calculate energy charges with three progressive slabs, add a fixed fee and surcharge, give a low-use rebate, and flag month-to-month bill increases above 25%. Example slabs: first 100 units at 1.5, next 200 at 2.5, remaining units at 4. Fixed charge 50; surcharge 5%; rebate 2% when use <= 150 units.
+
+Algorithm
+
+1. Keep the month's unit readings in a list.
+
+2. Calculate each slab's charge and add the fixed charge.
+
+3. Add surcharge and subtract any qualifying rebate.
+
+4. Compare each bill after the first with the previous bill.
+
+5. Flag increases greater than 25% and print all bills.
+
+Flowchart
+
+START -> Read each month's units -> Apply progressive slabs
+
+  -> Add fixed charge and surcharge -> Rebate applies?
+
+     -> YES: Subtract rebate
+
+     -> NO: Keep bill
+
+  -> Compare with previous month -> Increase > 25%?
+
+     -> YES: Flag unusual
+
+     -> NO: Normal
+
+  -> Print -> END
+
+Python code
+
+months = ["Jan", "Feb", "Mar"]
+
+units_list = [120, 220, 400]
+
+bills = []
+
+for units in units_list:
+
+    if units <= 100:
+
+        energy = units * 1.5
+
+    elif units <= 300:
+
+        energy = 100 * 1.5 + (units - 100) * 2.5
+
+    else:
+
+        energy = 100 * 1.5 + 200 * 2.5 + (units - 300) * 4
+
+    bill = energy + 50
+
+    bill = bill + bill * 5 / 100
+
+    if units <= 150:
+
+        bill = bill - bill * 2 / 100
+
+    bills.append(bill)
+
+for i in range(len(bills)):
+
+    if i == 0:
+
+        print(months[i], round(bills[i], 2), "BASE MONTH")
+
+    else:
+
+        increase = (bills[i] - bills[i - 1]) / bills[i - 1] * 100
+
+        if increase > 25:
+
+            status = "UNUSUAL INCREASE"
+
+        else:
+
+            status = "NORMAL"
+
+        print(months[i], round(bills[i], 2), round(increase, 1), status)
+
+Sample output
+
+Jan 257.5 BASE MONTH
+
+Feb 525.0 103.9 UNUSUAL INCREASE
+
+Mar 1155.0 120.0 UNUSUAL INCREASE
+
+
